@@ -197,5 +197,34 @@ namespace OnlineCatalogue.Web.Api.Controllers
                 return StatusCode(500, ex);
             }
         }
+
+        /// <summary>
+        /// Deletes a student and its address if specified
+        /// </summary>
+        /// <param name="idStudent"></param>
+        /// <param name="deleteAddress"></param>
+        /// <returns>The ID of the deleted student</returns>
+        [HttpDelete("DeleteStudentAndAddress{idStudent}/{deleteAddress}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Exception))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        public IActionResult DeleteStudentAndAddress(int idStudent,bool deleteAddress)
+        {
+            try
+            {
+                var deletedStudentId = studentService.DeleteStudent(idStudent, deleteAddress);
+
+                if (deletedStudentId == null)
+                {
+                    return NotFound($"No student with ID: {idStudent} was found.");
+                }
+
+                return Ok(deletedStudentId);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
     }
 }

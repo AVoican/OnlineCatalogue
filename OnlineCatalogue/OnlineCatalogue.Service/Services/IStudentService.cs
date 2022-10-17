@@ -18,5 +18,7 @@ namespace OnlineCatalogue.Service.Services
 
         StudentEditDto EditStudent(StudentEditDto studentDto);
         StudentAddressEditDto EditStudentAddress(StudentAddressEditDto studentAddressEditDto);
+        int? DeleteStudent(int id, bool deleteAddress);
+
     }
 }

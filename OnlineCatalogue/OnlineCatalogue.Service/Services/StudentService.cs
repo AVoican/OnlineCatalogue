@@ -41,6 +41,27 @@ namespace OnlineCatalogue.Service.Services
             return id;
         }
 
+        public int? DeleteStudent(int id,bool deleteAddress)
+        {
+            var student = dbContext.Students.Include(s => s.Address).SingleOrDefault(s => s.Id == id);
+
+            if (student == null)
+            {
+                return null;
+            }
+
+            if (deleteAddress)
+            {
+                if (student.Address != null) 
+                {
+                    dbContext.Addresses.Remove(student.Address);
+                }
+            }
+            dbContext.Students.Remove(student);
+            dbContext.SaveChanges();
+            return id;
+        }
+
         public StudentEditDto EditStudent(StudentEditDto studentDto)
         {
             var student = dbContext.Students.SingleOrDefault(s => s.Id == studentDto.Id);
