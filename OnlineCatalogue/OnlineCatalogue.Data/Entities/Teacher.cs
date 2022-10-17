@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineCatalogue.Data.Enumerations;
+using System;
 using System.Collections.Generic;
 
 namespace OnlineCatalogue.Data.Entities
@@ -13,7 +14,7 @@ namespace OnlineCatalogue.Data.Entities
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public int? IdAddress { get; set; }
-        public int Rank { get; set; }
+        public TeacherRank Rank { get; set; }
 
         public virtual Address? Address { get; set; }
         public virtual ICollection<Subject> Subjects { get; set; }
